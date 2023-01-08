@@ -1,4 +1,4 @@
-package com.elfrikiamv.super_coupons
+package com.elfrikiamv.super_coupons.view
 
 import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView
@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.elfrikiamv.super_coupons.model.Coupon
+import com.elfrikiamv.super_coupons.R
 import com.squareup.picasso.Picasso
 
-class RecyclerCouponsAdapter(private var coupons : ArrayList<Coupon>, private var resource: Int) : RecyclerView.Adapter<RecyclerCouponsAdapter.CardCouponHolder>() {
+class RecyclerCouponsAdapter(var coupons : ArrayList<Coupon>?, private var resource: Int) : RecyclerView.Adapter<RecyclerCouponsAdapter.CardCouponHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CardCouponHolder {
         val view: View = LayoutInflater.from(p0.context).inflate(resource, p0, false)
@@ -18,11 +20,11 @@ class RecyclerCouponsAdapter(private var coupons : ArrayList<Coupon>, private va
     }
 
     override fun getItemCount(): Int {
-        return coupons.size
+        return coupons?.size ?: 0
     }
 
     override fun onBindViewHolder(p0: CardCouponHolder, p1: Int) {
-        val coupon = coupons[p1]
+        val coupon = coupons?.get(p1)
         p0.setDataCard(coupon)
     }
 
@@ -39,16 +41,18 @@ class RecyclerCouponsAdapter(private var coupons : ArrayList<Coupon>, private va
             v.setOnClickListener(this)
         }
 
-        fun setDataCard(coupon: Coupon){
+        fun setDataCard(coupon: Coupon?){
             this.coupon = coupon
             //Picasso.get().load(coupon.image_url).resize(520, 520).centerCrop().into(imgCoupon)
-            if (coupon.image.isNotEmpty()){
-                Picasso.get().load(coupon.image).resize(520, 520).centerCrop().into(imgCoupon)
+            if (coupon != null) {
+                if (coupon.image.isNotEmpty()){
+                    Picasso.get().load(coupon.image).resize(520, 520).centerCrop().into(imgCoupon)
+                }
             }
-            tvTitle.text = coupon.title
-            tvDescriptionShort.text = coupon.description
-            tvCategory.text = coupon.category
-            tvDate.text = coupon.endDate
+            tvTitle.text = coupon?.title
+            tvDescriptionShort.text = coupon?.description
+            tvCategory.text = coupon?.category
+            tvDate.text = coupon?.endDate
 
         }
 

@@ -1,4 +1,4 @@
-package com.elfrikiamv.super_coupons
+package com.elfrikiamv.super_coupons.view
 
 import android.content.Intent
 import android.net.Uri
@@ -7,12 +7,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.elfrikiamv.super_coupons.model.Coupon
+import com.elfrikiamv.super_coupons.R
 import com.squareup.picasso.Picasso
 //import de.hdodenhof.circleimageview.CircleImageView
 
 class CouponDetailActivity : AppCompatActivity() {
 
-    private var couponSelected:Coupon? = null
+    private var couponSelected: Coupon? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

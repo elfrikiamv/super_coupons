@@ -1,4 +1,4 @@
-package com.elfrikiamv.super_coupons
+package com.elfrikiamv.super_coupons.model
 
 import com.google.gson.JsonObject
 import java.io.Serializable

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.elfrikiamv.super_coupons.model.Coupon
 import com.elfrikiamv.super_coupons.R
 import com.squareup.picasso.Picasso
+
 //import de.hdodenhof.circleimageview.CircleImageView
 
 class CouponDetailActivity : AppCompatActivity() {
@@ -46,8 +47,9 @@ class CouponDetailActivity : AppCompatActivity() {
 
         //Picasso.get().load(couponSelected?.image_url).resize(520, 520).centerCrop().into(imgHeaderDetail)
 
-        if (couponSelected?.image?.isNotEmpty() == true){
-            Picasso.get().load(couponSelected?.image).resize(520, 520).centerCrop().into(imgHeaderDetail)
+        if (couponSelected?.image?.isNotEmpty() == true) {
+            Picasso.get().load(couponSelected?.image).resize(520, 520).centerCrop()
+                .into(imgHeaderDetail)
 
         }
 

@@ -1,20 +1,22 @@
 package com.elfrikiamv.super_coupons.model
 
 import android.util.Log
-import com.elfrikiamv.super_coupons.presenter.CouponPresenter
+import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CouponRepositoryImpl(var couponPresenter: CouponPresenter): CouponRepository {
+class CouponRepositoryImpl : CouponRepository {
+
+    private var coupons = MutableLiveData<List<Coupon>>()
 
     //-------------> logic of connecting to the API
-    override fun getCouponsAPI() {
+    override fun callCouponsAPI() {
 
         //-------------> controller
-        val coupons: ArrayList<Coupon> = ArrayList<Coupon>()
+        val couponsList: ArrayList<Coupon> = ArrayList<Coupon>()
         val apiAdapter = ApiAdapter()
         val apiService = apiAdapter.getClientService()
         val call = apiService.getCoupons()
@@ -30,14 +32,18 @@ class CouponRepositoryImpl(var couponPresenter: CouponPresenter): CouponReposito
                 offersJsonArray?.forEach { jsonElement: JsonElement ->
                     val jsonObject = jsonElement.asJsonObject
                     val coupon = Coupon(jsonObject)
-                    coupons.add(coupon)
+                    couponsList.add(coupon)
                 }
                 //-------------> view
-                couponPresenter.showCoupons(coupons)
+                coupons.value = couponsList
                 //<------------- view
             }
         })
         //<------------- controller
+    }
+
+    override fun getCoupons(): MutableLiveData<List<Coupon>> {
+        return coupons
     }
     //<------------- logic of connecting to the API
 }
